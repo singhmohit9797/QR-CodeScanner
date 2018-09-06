@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         if(successfulLogin) {
             System.out.println("Successful login");
             Intent intent = new Intent (v.getContext(),LoadingScreen.class);
-            intent.putExtra(getString(R.string.user_object), authTask.getUser());
+            //intent.putExtra(getString(R.string.user_object), authTask.getUser());
             startActivityForResult(intent,0);
         }
     }
@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         user = authTask.getUser();
+        System.out.println(user.getId());
         return (user != null) ? true : false;
     }
 

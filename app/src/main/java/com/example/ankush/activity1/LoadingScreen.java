@@ -19,7 +19,7 @@ public class LoadingScreen extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(3000);
-                    Intent intent = new Intent(getApplicationContext(),LandingPage.class);
+                    Intent intent = new Intent(getApplicationContext(),Scanner.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {
