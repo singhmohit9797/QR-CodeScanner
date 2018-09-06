@@ -14,9 +14,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void Enter1(View v)
-    {
-        Intent intent=new Intent (v.getContext(),starting.class);
-        startActivityForResult(intent,0);
+    public void onLoginButtonClick(View v) {
+        Intent intent = new Intent(v.getContext(), loader.class);
+        startActivity(intent);
     }
+    public void ver(View v)
+    {
+        Intent intent = new Intent(v.getContext(), Main2Activity.class);
+        startActivity(intent);
+    }
+
 }
+

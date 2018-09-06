@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Activity1</string>
+    <string name="app_name">QR Code Scanner</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_starting">starting</string>
     <string name="title_activity_main3">Main3Activity</string>
+    <string name="title_activity_loader">loader</string>
 </resources>
