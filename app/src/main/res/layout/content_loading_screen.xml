@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".starting"
-    tools:showIn="@layout/activity_starting">
+    tools:context=".LoadingScreen"
+    tools:showIn="@layout/activity_loading_screen">
 
     <ImageView
         android:id="@+id/imageView"
