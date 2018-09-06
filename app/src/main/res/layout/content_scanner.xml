@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Main3Activity"
-    tools:showIn="@layout/activity_main3">
+    tools:context=".Scanner"
+    tools:showIn="@layout/activity_scanner">
 
     <fragment
         android:id="@+id/barcode_scanner"
