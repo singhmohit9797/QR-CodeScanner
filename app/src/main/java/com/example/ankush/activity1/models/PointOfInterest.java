@@ -3,8 +3,6 @@ package com.example.ankush.activity1.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.ankush.activity1.Scanner;
-
 public class PointOfInterest implements Parcelable{
 
     private int id;

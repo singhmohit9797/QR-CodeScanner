@@ -21,16 +21,16 @@
         </activity>
         <activity
             android:name=".LandingPage"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme"></activity>
+        <activity 
             android:name=".LoadingScreen"
-            android:label="@string/title_activity_starting"
+            android:label="LOADING......"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Scanner"
-            android:label="@string/title_activity_main3"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="Scanning....."
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

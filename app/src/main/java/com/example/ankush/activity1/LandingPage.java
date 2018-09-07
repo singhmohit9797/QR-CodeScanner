@@ -16,15 +16,15 @@ public class LandingPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Intent intent = getIntent();
-        user = intent.getParcelableExtra(getString(R.string.user_object));
     }
 
-    public void OnScanButtonClick(View v) {
+    public void OnScanNewClick(View v) {
+
         Intent intent = new Intent(v.getContext(), Scanner.class);
-        startActivityForResult(intent ,0);
+        startActivity(intent);
+
     }
+
 }

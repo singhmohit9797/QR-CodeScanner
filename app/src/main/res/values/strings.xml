@@ -9,4 +9,5 @@
     <string name="error_incorrect_password">Incorrect password</string>
     <string name="error_invalid_email">Invalid Email</string>
     <string name="local_host_url">172.31.76.231:8080/QRCodeScannerAPI/api</string>
+    <string name="title_activity_result">Result</string>
 </resources>

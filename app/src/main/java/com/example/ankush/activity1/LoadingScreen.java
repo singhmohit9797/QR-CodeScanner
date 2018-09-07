@@ -18,8 +18,8 @@ public class LoadingScreen extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(3000);
-                    Intent intent = new Intent(getApplicationContext(),Scanner.class);
+                    sleep(1500);
+                    Intent intent = new Intent(getApplicationContext(), LandingPage.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {
