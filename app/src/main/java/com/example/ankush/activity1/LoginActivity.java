@@ -26,9 +26,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditView;
     private EditText passwordEditView;
+
     private User user;
 
     private UserLoginTask authTask;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +99,9 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         user = authTask.getUser();
+
+        System.out.println(user.getId());
+      
         return (user != null) ? true : false;
     }
 

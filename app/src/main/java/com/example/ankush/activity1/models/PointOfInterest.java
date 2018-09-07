@@ -5,11 +5,20 @@ import android.os.Parcelable;
 
 public class PointOfInterest implements Parcelable{
 
+    private int id;
+
     private String title;
 
     private String description;
 
+    public PointOfInterest(int id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+
     protected PointOfInterest(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         description = in.readString();
     }
@@ -25,6 +34,14 @@ public class PointOfInterest implements Parcelable{
             return new PointOfInterest[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -49,6 +66,7 @@ public class PointOfInterest implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(description);
     }

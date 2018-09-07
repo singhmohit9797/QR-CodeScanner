@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LandingPage"
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme"></activity>
+        <activity 
             android:name=".LoadingScreen"
             android:label="LOADING......"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -27,10 +31,6 @@
             android:name=".Scanner"
             android:label="Scanning....."
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LandingPage"
-            android:label="@string/title_activity_result"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
