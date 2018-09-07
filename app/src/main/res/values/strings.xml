@@ -3,5 +3,11 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_starting">starting</string>
     <string name="title_activity_main3">Main3Activity</string>
-    <string name="title_activity_loader">loader</string>
+    <string name="user_object">USER_OBJECT</string>
+    <string name="error_required_field">Required Field</string>
+    <string name="error_invalid_password">Invalid Password</string>
+    <string name="error_incorrect_password">Incorrect password</string>
+    <string name="error_invalid_email">Invalid Email</string>
+    <string name="local_host_url">172.31.76.231:8080/QRCodeScannerAPI/api</string>
+    <string name="title_activity_result">Result</string>
 </resources>

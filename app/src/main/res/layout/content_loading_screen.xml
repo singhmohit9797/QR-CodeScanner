@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loadpage"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Main2Activity"
-    tools:showIn="@layout/activity_main2">
-
-    <Button
-        android:id="@+id/button"
+    tools:context=".LoadingScreen"
+    tools:showIn="@layout/activity_loading_screen">
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
-        android:onClick="Enter2"
-        android:text="Button"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="107dp" />
+        android:layout_marginBottom="50dp" />
+
 </RelativeLayout>
