@@ -1,5 +1,6 @@
 package com.example.ankush.activity1;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,11 +11,14 @@ import android.util.SparseArray;
 
 import com.example.ankush.activity1.models.PointOfInterest;
 import com.example.ankush.activity1.models.User;
+import com.example.ankush.activity1.utils.DbUtil;
+import com.example.ankush.activity1.utils.JSONUtil;
 import  com.google.android.gms.vision.barcode.Barcode;
 
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -51,16 +55,22 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
             task = new POIDescriptionTask(qrCodeValue);
             try {
                 task.execute((Void) null).get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             poi = task.getPoi();
-
+            task = null;
             System.out.println(poi.getDescription());
         }
+
+        if(poi != null)
+        {
+            Intent intent = new Intent(getApplicationContext(), LandingPage.class);
+            intent.putExtra(getString(R.string.poi_object), poi);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -105,35 +115,20 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
             }
 
             //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/get/" + title;
+            String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/get/" + title;
             System.out.println(url);
             try{
                 System.out.println("Making the call");
-                HttpURLConnection connection = (HttpURLConnection) (new URL(url)).openConnection();
-                connection.setRequestMethod("GET");
+                InputStream inputStream = DbUtil.SendGetRequest(url);
 
-                connection.connect();
+                if(inputStream != null) {
+                    JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
 
-                JsonReader jsonReader = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+                    if(poiJson != null)
+                        poi = new PointOfInterest(poiJson.getInt("id"), poiJson.getString("title"), poiJson.getString("description"));
 
-                JSONObject poiJson = null;
-
-                if(jsonReader.hasNext())
-                {
-                    poiJson = new JSONObject();
-                    jsonReader.beginObject();
-                    while(jsonReader.hasNext())
-                    {
-                        String key = jsonReader.nextName();
-                        String value = jsonReader.nextString();
-                        poiJson.put(key, value);
-                    }
-                System.out.println("Making the call");
+                    return poi;
                 }
-                if(poiJson != null)
-                    poi = new PointOfInterest(poiJson.getInt("id"), poiJson.getString("title"), poiJson.getString("description"));
-
-                return poi;
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -143,7 +138,6 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
 
         @Override
         protected void onPostExecute(final PointOfInterest poi) {
-            task = null;
             if (poi != null) {
                 finish();
             }
