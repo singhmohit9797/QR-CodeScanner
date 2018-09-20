@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Scanner"
+    tools:showIn="@layout/activity_scanner">
+
+    <fragment
+        android:id="@+id/barcode_scanner"
+        android:name="info.androidhive.barcode.BarcodeReader"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        app:auto_focus="true"
+        app:use_flash="false" />
+
+</RelativeLayout>
