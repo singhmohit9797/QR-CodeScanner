@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.ankush.activity1.models.User;
+import com.example.ankush.activity1.utils.DbUtil;
+import com.example.ankush.activity1.utils.JSONUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -46,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         if(successfulLogin) {
             System.out.println("Successful login");
-            Intent intent = new Intent (v.getContext(),LoadingScreen.class);
-            //intent.putExtra(getString(R.string.user_object), authTask.getUser());
+            Intent intent = new Intent (getApplicationContext(),LoadingScreen.class);
+            intent.putExtra(getString(R.string.user_object), user);
             startActivityForResult(intent,0);
         }
     }
@@ -91,18 +94,14 @@ public class LoginActivity extends AppCompatActivity {
             authTask = new UserLoginTask(email, password);
             try {
                 authTask.execute((Void) null).get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
         user = authTask.getUser();
 
-        System.out.println(user.getId());
-      
-        return (user != null) ? true : false;
+        return (user != null);
     }
 
     private boolean isEmailValid(String email) {
@@ -150,41 +149,19 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://192.168.43.189:8080/QRCodeScannerAPI/api/login";
+            String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/login";
            try{
                System.out.println("Making the call");
-               HttpURLConnection connection = (HttpURLConnection) (new URL(url)).openConnection();
-               connection.setRequestMethod("POST");
-               connection.setRequestProperty("Content-Type", "application/json");
-               connection.setDoOutput(true);
+               InputStream inputStream = DbUtil.SendPostRequest(url, getUserJSONObject(email, password));
 
-               BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
-               writer.write(getUserJSONObject(email, password).toString());
-               writer.flush();
-               writer.close();
+               if(inputStream != null) {
+                   JSONObject userJson = JSONUtil.ParseJSONObject(inputStream);
 
-               connection.connect();
+                   if(userJson != null)
+                       user = new User(userJson.getInt("id"), userJson.getString("email"), userJson.getString("password"));
 
-               JsonReader jsonReader = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-
-               JSONObject userJson = null;
-
-               if(jsonReader.hasNext())
-               {
-                   userJson = new JSONObject();
-                   jsonReader.beginObject();
-                   while(jsonReader.hasNext())
-                   {
-                       String key = jsonReader.nextName();
-                       String value = jsonReader.nextString();
-                       userJson.put(key, value);
-                   }
+                   return user;
                }
-
-               if(userJson != null)
-                   user = new User(userJson.getInt("id"), userJson.getString("email"), userJson.getString("password"));
-
-               return user;
            }catch (Exception e) {
                e.printStackTrace();
            }

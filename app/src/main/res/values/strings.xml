@@ -4,6 +4,7 @@
     <string name="title_activity_starting">starting</string>
     <string name="title_activity_main3">Main3Activity</string>
     <string name="user_object">USER_OBJECT</string>
+    <string name="poi_object">POI_OBJECT</string>
     <string name="error_required_field">Required Field</string>
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_incorrect_password">Incorrect password</string>
