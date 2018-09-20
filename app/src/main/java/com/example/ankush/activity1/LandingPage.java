@@ -42,6 +42,7 @@ public class LandingPage extends AppCompatActivity {
     public void OnScanNewClick(View v) {
 
         Intent intent = new Intent(getApplicationContext(), Scanner.class);
+        intent.putExtra(getString(R.string.user_object), user);
         startActivity(intent);
 
     }
