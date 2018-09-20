@@ -1,36 +1,30 @@
 package com.example.ankush.activity1;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonReader;
 import android.util.SparseArray;
 
 import com.example.ankush.activity1.models.PointOfInterest;
 import com.example.ankush.activity1.models.User;
 import com.example.ankush.activity1.utils.DbUtil;
 import com.example.ankush.activity1.utils.JSONUtil;
-import  com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import info.androidhive.barcode.BarcodeReader;
 
 public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeReaderListener {
 
     private String qrCodeValue;
+
+    private User user;
 
     private PointOfInterest poi;
 
@@ -42,6 +36,11 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
         setContentView(R.layout.activity_scanner);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        poi = null;
+
+        user = getIntent().getParcelableExtra(getString(R.string.user_object));
+        System.out.println(user.getEmail() + "  " + user.getPassword());
     }
 
     @Override
@@ -61,13 +60,13 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
 
             poi = task.getPoi();
             task = null;
-            System.out.println(poi.getDescription());
         }
 
         if(poi != null)
         {
             Intent intent = new Intent(getApplicationContext(), LandingPage.class);
             intent.putExtra(getString(R.string.poi_object), poi);
+            intent.putExtra(getString(R.string.user_object), user);
             startActivity(intent);
         }
 
@@ -115,7 +114,7 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
             }
 
             //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/get/" + title;
+            String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/get/" + title;
             System.out.println(url);
             try{
                 System.out.println("Making the call");

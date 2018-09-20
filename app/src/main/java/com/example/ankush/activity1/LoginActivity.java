@@ -2,11 +2,9 @@ package com.example.ankush.activity1;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.EditText;
 
@@ -17,13 +15,7 @@ import com.example.ankush.activity1.utils.JSONUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            passwordEditView.setError(getString(R.string.error_invalid_password));
             focusView = passwordEditView;
             cancel = true;
         }
@@ -90,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (cancel) {
             focusView.requestFocus();
+            return false;
         } else {
             authTask = new UserLoginTask(email, password);
             try {
@@ -105,10 +97,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
+
+        if(!email.contains("@"))
+            return false;
+
         return true;
     }
 
     private boolean isPasswordValid(String password) {
+        if(password.length() < 4)
+        {
+            passwordEditView.setError(getString(R.string.error_insufficient_length_password));
+            return false;
+        }
+
+        if(!checkCaps(password))
+        {
+            passwordEditView.setError(getString(R.string.error_caps_character_password));
+            return false;
+        }
+
         return true;
     }
 
@@ -123,6 +131,16 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return object;
+    }
+
+    private boolean checkCaps(String str) {
+        int size = str.length();
+        for(int i=0; i<size; i++)
+        {
+            if(str.charAt(i) >= 65 && str.charAt(i) <= 90)
+                return true;
+        }
+        return false;
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, User> {
@@ -149,9 +167,9 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/login";
+            String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/login";
            try{
-               System.out.println("Making the call");
+
                InputStream inputStream = DbUtil.SendPostRequest(url, getUserJSONObject(email, password));
 
                if(inputStream != null) {
@@ -176,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 finish();
             } else {
-                passwordEditView.setError(getString(R.string.error_incorrect_password));
+                passwordEditView.setError(getString(R.string.error_connection_timeout));
                 passwordEditView.requestFocus();
             }
         }

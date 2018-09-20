@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.example.ankush.activity1.models.User;
+
 public class LoadingScreen extends AppCompatActivity {
 
     @Override
@@ -20,6 +22,8 @@ public class LoadingScreen extends AppCompatActivity {
                 try {
                     sleep(1500);
                     Intent intent = new Intent(getApplicationContext(), Scanner.class);
+                    User user = getIntent().getParcelableExtra(getString(R.string.user_object));
+                    intent.putExtra(getString(R.string.user_object), user);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {

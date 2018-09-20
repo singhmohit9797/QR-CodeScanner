@@ -55,6 +55,7 @@ public class DbUtil {
     {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setConnectTimeout(5000);
             connection.setRequestMethod(requestMethod);
 
             if(requestMethod.equals("POST"))
