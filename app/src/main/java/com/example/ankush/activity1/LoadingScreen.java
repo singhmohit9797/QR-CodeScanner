@@ -20,10 +20,11 @@ public class LoadingScreen extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1500);
+                    sleep(1000);
                     Intent intent = new Intent(getApplicationContext(), Scanner.class);
                     User user = getIntent().getParcelableExtra(getString(R.string.user_object));
                     intent.putExtra(getString(R.string.user_object), user);
+
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {

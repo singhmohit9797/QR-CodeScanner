@@ -11,11 +11,10 @@ import com.example.ankush.activity1.models.PointOfInterest;
 import com.example.ankush.activity1.models.User;
 import com.example.ankush.activity1.utils.DbUtil;
 import com.example.ankush.activity1.utils.JSONUtil;
-import com.google.android.gms.vision.barcode.Barcode;
 
-import org.json.JSONObject;
-
+import  com.google.android.gms.vision.barcode.Barcode;
 import java.io.InputStream;
+
 import java.util.List;
 
 import info.androidhive.barcode.BarcodeReader;
@@ -114,7 +113,7 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
             }
 
             //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/get/" + title;
+            String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/get/" + title;
             System.out.println(url);
             try{
                 System.out.println("Making the call");
