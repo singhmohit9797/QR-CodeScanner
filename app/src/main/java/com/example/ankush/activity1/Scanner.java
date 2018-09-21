@@ -36,7 +36,7 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         poi = null;
@@ -106,19 +106,13 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
 
         @Override
         protected PointOfInterest doInBackground(Void... params) {
-
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return null;
-            }
 
-            //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/get/" + title;
-            System.out.println(url);
-            try{
+                //Call the API
+                String url = getString(R.string.local_host_url) + "get/" + title;
+                System.out.println(url);
                 System.out.println("Making the call");
                 InputStream inputStream = DbUtil.SendGetRequest(url);
 
