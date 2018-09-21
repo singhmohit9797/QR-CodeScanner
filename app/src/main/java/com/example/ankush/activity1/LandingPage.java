@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ankush.activity1.models.PointOfInterest;
@@ -19,7 +18,7 @@ public class LandingPage extends AppCompatActivity {
 
     private TextView resultTitleView;
 
-    private EditText resultDescView;
+    private TextView resultDescView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
