@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Simulate network access.
                 Thread.sleep(2000);
                 //Call the API
-                String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/login";
+                String url = getString(R.string.local_host_url) + "login";
                InputStream inputStream = DbUtil.SendPostRequest(url, getUserJSONObject(email, password));
 
                if(inputStream != null) {

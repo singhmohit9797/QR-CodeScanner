@@ -111,7 +111,7 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
                 Thread.sleep(2000);
 
                 //Call the API
-                String url = /*getString(R.string.local_host_url) + */"http://172.31.67.80:8080/QRCodeScannerAPI/api/get/" + title;
+                String url = getString(R.string.local_host_url) + "get/" + title;
                 System.out.println(url);
                 System.out.println("Making the call");
                 InputStream inputStream = DbUtil.SendGetRequest(url);
