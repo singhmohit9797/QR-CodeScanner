@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditView;
 
     private User user;
-
     private UserLoginTask authTask;
     
     @Override
@@ -41,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         boolean successfulLogin = attemptLogin();
 
         if(successfulLogin) {
-            System.out.println("Successful login");
             Intent intent = new Intent (getApplicationContext(),LoadingScreen.class);
             intent.putExtra(getString(R.string.user_object), user);
             startActivityForResult(intent,0);
@@ -93,27 +91,20 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         user = authTask.getUser();
-
         return (user != null);
     }
 
     private boolean isEmailValid(String email) {
-
-        if(!email.contains("@"))
-            return false;
-
-        return true;
+        return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        if(password.length() < 4)
-        {
+        if(password.length() < 4) {
             passwordEditView.setError(getString(R.string.error_insufficient_length_password));
             return false;
         }
 
-        if(!checkCaps(password))
-        {
+        if(!checkCaps(password)) {
             passwordEditView.setError(getString(R.string.error_caps_character_password));
             return false;
         }
@@ -123,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private JSONObject getUserJSONObject(String email, String password) {
         JSONObject object = new JSONObject();
-
         try {
             object.put("email", email);
             object.put("password", password);
@@ -136,11 +126,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean checkCaps(String str) {
         int size = str.length();
-        for(int i=0; i<size; i++)
-        {
+        for(int i=0; i<size; i++) {
             if(str.charAt(i) >= 65 && str.charAt(i) <= 90)
                 return true;
         }
+
         return false;
     }
 
@@ -162,15 +152,8 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return null;
-            }
-
-            //Call the API
-            String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/login";
-           try{
-
+                //Call the API
+                String url = /*getString(R.string.local_host_url) + */"http://192.168.137.1:8080/QRCodeScannerAPI/api/login";
                InputStream inputStream = DbUtil.SendPostRequest(url, getUserJSONObject(email, password));
 
                if(inputStream != null) {
