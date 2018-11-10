@@ -13,4 +13,8 @@
     <string name="error_invalid_email">Invalid Email</string>
     <string name="local_host_url">http://192.168.0.103:8080/QRCodeScannerAPI/api/</string>
     <string name="title_activity_result">Result</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_view">ViewActivity</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_add">AddActivity</string>
 </resources>

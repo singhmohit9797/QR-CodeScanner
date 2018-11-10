@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AdminActivity"
+    tools:showIn="@layout/activity_admin">
+
+    android:background="@drawable/loginbackground"
+    android:visibility="visible"
+    tools:context="?attr/actionModeSplitBackground">
+
+    <Button
+        android:id="@+id/addNewButton"
+        android:layout_width="170dp"
+        android:layout_height="82dp"
+        android:layout_alignStart="@+id/deleteButton"
+        android:layout_alignTop="@+id/scanButton"
+        android:onClick="OnAddNewButtonClick"
+        android:text="add"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="172dp"
+        android:layout_height="82dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/viewAllButton"
+        android:layout_marginEnd="54dp"
+        android:onClick="OnDeleteButtonClick"
+        android:text="delete"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <Button
+        android:id="@+id/scanButton"
+        android:layout_width="172dp"
+        android:layout_height="82dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/viewAllButton"
+        android:layout_marginBottom="76dp"
+        android:onClick="OnScanButtonClick"
+        android:text="scan"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <Button
+        android:id="@+id/viewAllButton"
+        android:layout_width="170dp"
+        android:layout_height="82dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        android:onClick="OnViewAllButtonClick"
+        android:text="view all"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="69dp" />
+</RelativeLayout>
