@@ -45,6 +45,12 @@ public class LoginActivity extends AppCompatActivity {
             startActivityForResult(intent,0);
         }
     }
+
+    public void OnSignupButtonClick(View v)
+    {
+            Intent intent = new Intent (getApplicationContext(),AdminActivity.class);
+            startActivity(intent);
+    }
     
     private boolean attemptLogin()
     {
