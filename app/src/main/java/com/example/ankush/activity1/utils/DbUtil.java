@@ -34,8 +34,7 @@ public class DbUtil {
         return null;
     }
 
-    public static InputStream SendGetRequest(String url)
-    {
+    public static InputStream SendGetRequest(String url)  {
         HttpURLConnection connection = InitiateConnection(url, "GET");
 
         if(connection == null)
@@ -51,8 +50,7 @@ public class DbUtil {
         return null;
     }
 
-    private static HttpURLConnection InitiateConnection(String url, String requestMethod)
-    {
+    private static HttpURLConnection InitiateConnection(String url, String requestMethod) {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setConnectTimeout(5000);
