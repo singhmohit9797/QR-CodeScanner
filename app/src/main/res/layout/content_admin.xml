@@ -21,19 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="146dp"
         android:onClick="OnAddNewButtonClick"
-        android:text="add"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="69dp" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="172dp"
-        android:layout_height="82dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="181dp"
-        android:onClick="OnDeleteButtonClick"
-        android:text="delete"
+        android:text="Add New"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="69dp" />
 
@@ -45,7 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="76dp"
         android:onClick="OnScanButtonClick"
-        android:text="scan"
+        android:text="Scan"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="69dp" />
 
@@ -57,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
         android:onClick="OnViewAllButtonClick"
-        android:text="view all"
+        android:text="View All"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="69dp" />
 </RelativeLayout>

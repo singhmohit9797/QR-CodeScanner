@@ -21,8 +21,14 @@ public class LoadingScreen extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(1000);
-                    Intent intent = new Intent(getApplicationContext(), Scanner.class);
+                    Intent intent;
                     User user = getIntent().getParcelableExtra(getString(R.string.user_object));
+
+                    if(user.getIsAdmin() == 1)
+                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+                    else
+                        intent = new Intent(getApplicationContext(), Scanner.class);
+
                     intent.putExtra(getString(R.string.user_object), user);
 
                     startActivity(intent);

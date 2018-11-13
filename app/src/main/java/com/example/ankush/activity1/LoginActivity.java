@@ -46,14 +46,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void OnSignupButtonClick(View v)
-    {
-            Intent intent = new Intent (getApplicationContext(),AdminActivity.class);
+    public void OnSignupButtonClick(View v) {
+            Intent intent = new Intent (getApplicationContext(),SignupActivity.class);
             startActivity(intent);
     }
     
-    private boolean attemptLogin()
-    {
+    private boolean attemptLogin() {
         if(authTask != null)
             return false;
 
@@ -118,18 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private JSONObject getUserJSONObject(String email, String password) {
-        JSONObject object = new JSONObject();
-        try {
-            object.put("email", email);
-            object.put("password", password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return object;
-    }
-
     private boolean checkCaps(String str) {
         int size = str.length();
         for(int i=0; i<size; i++) {
@@ -157,17 +143,16 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                //Thread.sleep(2000);
                 //Call the API
-                String url = getString(R.string.local_host_url) + "login";
-               InputStream inputStream = DbUtil.SendPostRequest(url, getUserJSONObject(email, password));
+                String url = getString(R.string.local_host_url) + getString(R.string.api_login);
+               InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetUserJsonObject(email, password));
 
                if(inputStream != null) {
                    JSONObject userJson = JSONUtil.ParseJSONObject(inputStream);
 
                    if(userJson != null)
-                       user = new User(userJson.getInt("id"), userJson.getString("email"), userJson.getString("password"));
-
+                       user = JSONUtil.GetUserObject(userJson);
                    return user;
                }
            }catch (Exception e) {

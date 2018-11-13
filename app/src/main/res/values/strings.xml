@@ -11,10 +11,18 @@
     <string name="error_insufficient_length_password">Password must be atleast 4 characters long</string>
     <string name="error_caps_character_password">Password must contain a capital character</string>
     <string name="error_invalid_email">Invalid Email</string>
-    <string name="local_host_url">http://192.168.0.103:8080/QRCodeScannerAPI/api/</string>
+    <string name="error_password_mismatch">Invalid Email</string>
+    <string name="local_host_url">http://172.31.67.253:8080/QR-CodeScanner_QRCodeScannerAPI/api/</string>
     <string name="title_activity_result">Result</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="title_activity_view">ViewActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_add">AddActivity</string>
+    <string name="api_login">login</string>
+    <string name="api_signup">signup</string>
+    <string name="api_poi_description">get/</string>
+    <string name="api_poi_all">get/all</string>
+    <string name="api_poi_new">new</string>
+    <string name="api_poi_del">del</string>
+    <string name="api_poi_edit">edit</string>
 </resources>

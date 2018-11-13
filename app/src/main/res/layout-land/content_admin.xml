@@ -17,22 +17,10 @@
         android:id="@+id/addNewButton"
         android:layout_width="170dp"
         android:layout_height="82dp"
-        android:layout_alignStart="@+id/deleteButton"
+        android:layout_alignStart="@+id/editButton"
         android:layout_alignTop="@+id/scanButton"
         android:onClick="OnAddNewButtonClick"
-        android:text="add"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="69dp" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="172dp"
-        android:layout_height="82dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/viewAllButton"
-        android:layout_marginEnd="54dp"
-        android:onClick="OnDeleteButtonClick"
-        android:text="delete"
+        android:text="Add New"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="69dp" />
 
@@ -44,7 +32,7 @@
         android:layout_alignStart="@+id/viewAllButton"
         android:layout_marginBottom="76dp"
         android:onClick="OnScanButtonClick"
-        android:text="scan"
+        android:text="Scan"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="69dp" />
 
@@ -57,7 +45,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="37dp"
         android:onClick="OnViewAllButtonClick"
-        android:text="view all"
+        android:text="View All"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="69dp" />
 </RelativeLayout>
