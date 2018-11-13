@@ -37,7 +37,7 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public int GetIsAdmin() {
+    public int getIsAdmin() {
         return IsAdmin;
     }
 

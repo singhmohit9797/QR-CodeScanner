@@ -1,12 +1,14 @@
 package com.example.ankush.activity1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.ankush.activity1.models.PointOfInterest;
@@ -28,12 +30,14 @@ public class AddActivity extends AppCompatActivity {
 
     private User user;
 
+    private AddPOITask task;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         TitleEditText = findViewById(R.id.titleEditText);
         ContentEditText = findViewById(R.id.contentEditText);
 
@@ -44,6 +48,7 @@ public class AddActivity extends AppCompatActivity {
         if(poi != null) {
             TitleEditText.setText(poi.getTitle());
             ContentEditText.setText(poi.getDescription());
+            ((Button)(findViewById(R.id.addButton))).setText("Update");
         }
 
         setSupportActionBar(toolbar);
@@ -54,28 +59,105 @@ public class AddActivity extends AppCompatActivity {
         title = TitleEditText.getText().toString();
         description = ContentEditText.getText().toString();
 
-        PointOfInterest poi = new PointOfInterest(1, title, description);
+        if(title.equals("")) {
+            TitleEditText.setError(getString(R.string.error_required_field));
+            TitleEditText.requestFocus();
+            return;
+        }
+        else if(description.equals("")) {
+            ContentEditText.setError(getString(R.string.error_required_field));
+            ContentEditText.requestFocus();
+            return;
+        }
 
-        // Send the request to the api
-        String url = getString(R.string.local_host_url) + getString(R.string.api_poi_new);
-        System.out.println("URL:" + url);
-        InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetPoiJsonObject(poi));
-        if(inputStream != null) {
-            JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
+       task = new AddPOITask(new PointOfInterest(1, title, description));
 
-            if(poiJson != null) {
-                poi = JSONUtil.GetPoiObject(poiJson);
+        try{
+            task.execute((Void) null).get();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        poi = task.getPoi();
+        final boolean success = poi != null;
 
-                if(poi == null) {
-                    TitleEditText.setText("Couldn't be added to the database");
-                }
-                else{
-                    TitleEditText.setText("Successfully added to the database");
+        String result = null;
+        if(success) {
+            result = "User Registered Successfully. Taking you to the login page";
+        }
+        else{
+            result = "Something went wrong. Please try again after some time.";
+        }
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Add Result");
+        dialog.setMessage(result);
+        dialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                if(success) {
                     Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                     intent.putExtra(getString(R.string.user_object), user);
                     startActivity(intent);
                 }
             }
+        });
+        dialog.show();
+    }
+
+    public class AddPOITask extends AsyncTask<Void, Void, PointOfInterest> {
+
+        private PointOfInterest pointOfInterest;
+
+        AddPOITask(PointOfInterest pointOfInterest) {
+            this.pointOfInterest = pointOfInterest;
+        }
+
+        @Override
+        protected PointOfInterest doInBackground(Void... params) {
+
+            try {
+
+                // Send the request to the api
+                String url = getString(R.string.local_host_url) + getString(R.string.api_poi_new);
+                System.out.println("URL:" + url);
+                InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetPoiJsonObject(pointOfInterest));
+
+                if(inputStream != null) {
+                    JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
+
+                    if(poiJson != null)
+                        pointOfInterest = JSONUtil.GetPoiObject(poiJson);
+                    return pointOfInterest;
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final PointOfInterest pointOfInterest) {
+            task = null;
+
+            if (pointOfInterest != null) {
+                ;
+            } else {
+                ContentEditText.setError(getString(R.string.error_connection_timeout));
+                ContentEditText.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            task = null;
+        }
+
+        public PointOfInterest getPoi() {
+            return pointOfInterest;
         }
     }
+
 }

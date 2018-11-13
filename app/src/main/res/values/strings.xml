@@ -12,7 +12,7 @@
     <string name="error_caps_character_password">Password must contain a capital character</string>
     <string name="error_invalid_email">Invalid Email</string>
     <string name="error_password_mismatch">Invalid Email</string>
-    <string name="local_host_url">http://172.31.79.240:8080/QR-CodeScanner_QRCodeScannerAPI/api/</string>
+    <string name="local_host_url">http://172.31.67.253:8080/QR-CodeScanner_QRCodeScannerAPI/api/</string>
     <string name="title_activity_result">Result</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="title_activity_view">ViewActivity</string>

@@ -17,7 +17,7 @@
         android:id="@+id/addNewButton"
         android:layout_width="170dp"
         android:layout_height="82dp"
-        android:layout_alignStart="@+id/deleteButton"
+        android:layout_alignStart="@+id/editButton"
         android:layout_alignTop="@+id/scanButton"
         android:onClick="OnAddNewButtonClick"
         android:text="Add New"
