@@ -34,7 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         UsernameView = findViewById(R.id.usernameEditText);
@@ -88,6 +88,9 @@ public class SignupActivity extends AppCompatActivity {
                 if(success) {
                     // Go to login page
                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+
+                    // Finish the current activity
+                    finish();
                     startActivity(intent);
                 }
 
@@ -95,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public class UserSignupTask extends AsyncTask<Void, Void, User> {
+    private class UserSignupTask extends AsyncTask<Void, Void, User> {
 
         private User user;
 

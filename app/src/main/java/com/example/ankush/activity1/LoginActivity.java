@@ -42,12 +42,18 @@ public class LoginActivity extends AppCompatActivity {
         if(successfulLogin) {
             Intent intent = new Intent (getApplicationContext(),LoadingScreen.class);
             intent.putExtra(getString(R.string.user_object), user);
+
+            // Finish the current activity
+            finish();
             startActivityForResult(intent,0);
         }
     }
 
     public void OnSignupButtonClick(View v) {
             Intent intent = new Intent (getApplicationContext(),SignupActivity.class);
+
+            // Finish the current activity
+            finish();
             startActivity(intent);
     }
     
@@ -142,8 +148,6 @@ public class LoginActivity extends AppCompatActivity {
         protected User doInBackground(Void... params) {
 
             try {
-                // Simulate network access.
-                //Thread.sleep(2000);
                 //Call the API
                 String url = getString(R.string.local_host_url) + getString(R.string.api_login);
                InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetUserJsonObject(email, password));
