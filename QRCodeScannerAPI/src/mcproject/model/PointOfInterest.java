@@ -18,6 +18,7 @@ public class PointOfInterest {
 	private int id;
 	
 	@NotNull
+	@Column(unique = true)
 	private String title;
 	
 	@NotNull
