@@ -77,64 +77,68 @@ public class LandingPage extends AppCompatActivity {
 
     public void OnDeleteButtonClick(View v) {
         // Confirm if the user wants to delete the poi
-        final boolean[] bWantsToDelete = new boolean[1];
-
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Confirm Delete");
         dialog.setMessage("Are you sure you want to delete this poi? Changes will be irreversible.");
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                bWantsToDelete[0] = true;
                 dialog.dismiss();
+
+                // Call the API
+                CallAPI();
             }
         });
         dialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                bWantsToDelete[0] = true;
                 dialog.dismiss();
             }
         });
         dialog.show();
-
-        if(bWantsToDelete[0]){
-            // Call the API to delete the poi
-            task = new DelPOITask(poi);
-            try{
-                task.execute((Void) null).get();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-
-            boolean success = task.getPoi() != null;
-            String result = null;
-            if(success) {
-                result = "Successfully deleted the Point of Interest";
-            }
-            else {
-                result = "Couldn't delete the Point of Interest. Try again.";
-            }
-
-            dialog = new AlertDialog.Builder(this);
-            dialog.setTitle("Delete Result");
-            dialog.setMessage(result);
-            dialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            if(success) {
-                Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-                intent.putExtra(getString(R.string.user_object), user);
-                startActivity(intent);
-            }
-        }
     }
 
-    public class DelPOITask extends AsyncTask<Void, Void, PointOfInterest> {
+    // Call the API to delete the poi
+    private void CallAPI() {
+        task = new DelPOITask(poi);
+        try{
+            task.execute((Void) null).get();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        boolean success = (task.getPoi() == null);
+        String result;
+        if(success) {
+            System.out.println("Successful Deletion");
+            result = "Successfully deleted the Point of Interest";
+        }
+        else {
+            System.out.println("Something went wrong");
+            result = "Couldn't delete the Point of Interest. Try again.";
+        }
+
+        AlertDialog.Builder resultDialog = new AlertDialog.Builder(this);
+        resultDialog.setTitle("Delete Result");
+        resultDialog.setMessage(result);
+        resultDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                if(task.getPoi() == null) {
+                    Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                    intent.putExtra(getString(R.string.user_object), user);
+
+                    // Finish the current Activity
+                    finish();
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private class DelPOITask extends AsyncTask<Void, Void, PointOfInterest> {
 
         private PointOfInterest pointOfInterest;
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.ankush.activity1.models.PointOfInterest;
@@ -17,7 +16,6 @@ import com.example.ankush.activity1.utils.JSONUtil;
 import com.example.ankush.activity1.utils.POIAdapter;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -39,7 +37,9 @@ public class ViewActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
         // send the api request and retrieve the poi list'
-        getAll();
+        GetAll();
+
+        // Must not be null
         data = task.getPoiList();
 
         adapter = new POIAdapter(this, R.layout.content_list_item, data);
@@ -60,7 +60,7 @@ public class ViewActivity extends AppCompatActivity {
             });
     }
 
-    public void getAll() {
+    public void GetAll() {
         if(task != null)
             return;
 
@@ -73,7 +73,7 @@ public class ViewActivity extends AppCompatActivity {
         }
     }
 
-    public class GetAllPOITask extends AsyncTask<Void, Void, ArrayList<PointOfInterest>> {
+    private class GetAllPOITask extends AsyncTask<Void, Void, ArrayList<PointOfInterest>> {
 
         ArrayList<PointOfInterest> list;
 

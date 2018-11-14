@@ -69,6 +69,9 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
             Intent intent = new Intent(getApplicationContext(), LandingPage.class);
             intent.putExtra(getString(R.string.poi_object), poi);
             intent.putExtra(getString(R.string.user_object), user);
+
+            // Finish the current activity
+            finish();
             startActivity(intent);
         }
 
@@ -94,7 +97,7 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
         // camera permission denied
     }
 
-    public class POIDescriptionTask extends AsyncTask<Void, Void, PointOfInterest> {
+    private class POIDescriptionTask extends AsyncTask<Void, Void, PointOfInterest> {
 
         private PointOfInterest poi;
 

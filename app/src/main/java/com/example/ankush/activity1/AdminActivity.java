@@ -26,18 +26,27 @@ public class AdminActivity extends AppCompatActivity {
     public void OnViewAllButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(),ViewActivity.class);
         intent.putExtra(getString(R.string.user_object), user);
+
+        // Finish the current activity
+        finish();
         startActivity(intent);
     }
 
     public void OnAddNewButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(),AddActivity.class);
         intent.putExtra(getString(R.string.user_object), user);
+
+        // Finish the current activity
+        finish();
         startActivity(intent);
     }
 
     public void OnScanButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(),Scanner.class);
         intent.putExtra(getString(R.string.user_object), user);
+
+        // Finish the current activity
+        finish();
         startActivity(intent);
     }
 }

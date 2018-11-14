@@ -43,8 +43,10 @@ public class AddActivity extends AppCompatActivity {
 
         user = getIntent().getParcelableExtra(getString(R.string.user_object));
 
+        // Get the poi object if this is activity is activated using the edit action button
         poi = getIntent().getParcelableExtra(getString(R.string.poi_object));
 
+        // If the user is editing a poi, then change the buttons
         if(poi != null) {
             TitleEditText.setText(poi.getTitle());
             ContentEditText.setText(poi.getDescription());
@@ -70,7 +72,14 @@ public class AddActivity extends AppCompatActivity {
             return;
         }
 
-       task = new AddPOITask(new PointOfInterest(1, title, description));
+        // Check if the user is updating the poi or adding a new one
+        if(poi != null) {
+            poi.setTitle(title);
+            poi.setDescription(description);
+            task = new AddPOITask(poi);
+        }
+        else
+            task = new AddPOITask(new PointOfInterest(1, title, description));
 
         try{
             task.execute((Void) null).get();
@@ -78,13 +87,15 @@ public class AddActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         poi = task.getPoi();
-        final boolean success = poi != null;
+        final boolean success = (poi != null);
 
-        String result = null;
+        String result;
         if(success) {
+            System.out.println("Edit/Add: Successfully completed");
             result = "User Registered Successfully. Taking you to the login page";
         }
         else{
+            System.out.println("Edit/Add: Something went wrong");
             result = "Something went wrong. Please try again after some time.";
         }
 
@@ -99,6 +110,7 @@ public class AddActivity extends AppCompatActivity {
                 if(success) {
                     Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                     intent.putExtra(getString(R.string.user_object), user);
+                    finish();
                     startActivity(intent);
                 }
             }
@@ -106,7 +118,7 @@ public class AddActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public class AddPOITask extends AsyncTask<Void, Void, PointOfInterest> {
+    private class AddPOITask extends AsyncTask<Void, Void, PointOfInterest> {
 
         private PointOfInterest pointOfInterest;
 
@@ -118,19 +130,21 @@ public class AddActivity extends AppCompatActivity {
         protected PointOfInterest doInBackground(Void... params) {
 
             try {
-
                 // Send the request to the api
                 String url = getString(R.string.local_host_url) + getString(R.string.api_poi_new);
                 System.out.println("URL:" + url);
                 InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetPoiJsonObject(pointOfInterest));
 
                 if(inputStream != null) {
+                    System.out.println("Call went through");
                     JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
 
                     if(poiJson != null)
                         pointOfInterest = JSONUtil.GetPoiObject(poiJson);
                     return pointOfInterest;
                 }
+
+                System.out.println("Couldn't parse the object");
             }catch (Exception e) {
                 e.printStackTrace();
             }

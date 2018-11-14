@@ -46,9 +46,9 @@ public class JSONUtil {
         JSONArray result = null;
 
         try {
+            result = new JSONArray();
             JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
             if(reader.hasNext()) {
-                result = new JSONArray();
                 reader.beginArray();
                 while(reader.hasNext()) {
                     JSONObject obj = new JSONObject();
@@ -58,6 +58,7 @@ public class JSONUtil {
                         String value = reader.nextString();
                         obj.put(key, value);
                     }
+                    result.put(obj);
                     reader.endObject();
                 }
 
