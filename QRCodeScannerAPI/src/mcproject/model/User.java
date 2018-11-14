@@ -1,5 +1,6 @@
 package mcproject.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,13 +17,14 @@ public class User {
 	private int id;
 	
 	@NotNull
+	@Column(unique = true)
 	private String email;
 	
 	@NotNull
 	private String password;
 	
 	@NotNull
-	private boolean isAdmin;
+	private int isAdmin;
 
 	public int getId() {
 		return id;
@@ -48,11 +50,11 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isAdmin() {
+	public int getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
+	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 	

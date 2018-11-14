@@ -25,7 +25,12 @@ public class UserDAO {
 	
 	public User userRegister(User user)
 	{
-		sessionFactory.getCurrentSession().save(user);
-		return (User) sessionFactory.getCurrentSession().get(User.class, user.getId());
+		User existingUser = (User) sessionFactory.getCurrentSession().get(User.class, user.getId());
+		if(existingUser == null)
+		{
+			sessionFactory.getCurrentSession().save(user);
+			return user;
+		}
+		return null; 
 	}
 }

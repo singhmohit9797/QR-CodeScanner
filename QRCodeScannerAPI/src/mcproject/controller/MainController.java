@@ -67,7 +67,7 @@ public class MainController {
 	}
 	
 	// Get all POIs
-	@RequestMapping(value = "/get/allPOI", method = RequestMethod.GET)
+	@RequestMapping(value = "/get/all", method = RequestMethod.GET)
 	public List<PointOfInterest> getAllPOI()
 	{
 		System.out.println(getPointOfInterestDAO().getAllPOI().get(0));
@@ -75,21 +75,21 @@ public class MainController {
 	}
 	
 	// Add new POI
-	@RequestMapping(value = "/newPOI", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public PointOfInterest addNewPOI(@RequestBody PointOfInterest poi)
 	{
 		return getPointOfInterestDAO().addNew(poi);
 	}
 	
 	// Delete POI
-	@RequestMapping(value = "/delPOI", method = RequestMethod.POST)
+	@RequestMapping(value = "/del", method = RequestMethod.POST)
 	public PointOfInterest delPOI(@RequestBody PointOfInterest poi)
 	{
 		return getPointOfInterestDAO().del(poi);
 	}
 	
 	// Edit POI
-	@RequestMapping(value = "/editPOI", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public PointOfInterest editPOI(@RequestBody PointOfInterest poi)
 	{
 		return getPointOfInterestDAO().edit(poi);

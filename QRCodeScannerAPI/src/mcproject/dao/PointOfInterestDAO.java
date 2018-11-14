@@ -30,10 +30,15 @@ public class PointOfInterestDAO {
 				
 	}
 	
-	public PointOfInterest addNew(PointOfInterest poi)
+	public PointOfInterest addNew(PointOfInterest new_poi)
 	{
-		sessionFactory.getCurrentSession().save(poi);
-		return (PointOfInterest) sessionFactory.getCurrentSession().get(PointOfInterest.class, poi.getId());
+		PointOfInterest poi = (PointOfInterest) sessionFactory.getCurrentSession().get(PointOfInterest.class, new_poi.getId());
+		if(poi == null)
+		{
+			sessionFactory.getCurrentSession().save(new_poi);
+			return new_poi; 
+		}
+		return null;
 	}
 	
 	public PointOfInterest del(PointOfInterest poi)
