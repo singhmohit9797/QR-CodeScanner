@@ -55,6 +55,8 @@ public class ViewActivity extends AppCompatActivity {
                     PointOfInterest poi = (PointOfInterest) parent.getItemAtPosition(position);
                     intent.putExtra(getString(R.string.user_object), user);
                     intent.putExtra(getString(R.string.poi_object), poi);
+
+                    data = null;
                     startActivity(intent);
                  }
             });
@@ -91,8 +93,10 @@ public class ViewActivity extends AppCompatActivity {
                 InputStream inputStream = DbUtil.SendGetRequest(url);
 
                 if(inputStream != null) {
+                    System.out.println("GET ALL: Got the response from the API");
                     JSONArray jsonList = JSONUtil.ParseJSONListObject(inputStream);
                     if(jsonList != null) {
+                        System.out.println("GET ALL: Parsed the json response");
                         list = JSONUtil.GetPoiList(jsonList);
                     }
 

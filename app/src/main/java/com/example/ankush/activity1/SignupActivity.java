@@ -89,6 +89,7 @@ public class SignupActivity extends AppCompatActivity {
                     // Go to login page
                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
 
+                    System.out.println("Switching to the Login Activity");
                     // Finish the current activity
                     finish();
                     startActivity(intent);
@@ -125,10 +126,13 @@ public class SignupActivity extends AppCompatActivity {
                 InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetUserJsonObject(user));
 
                 if(inputStream != null) {
+                    System.out.println("SIGNUP: Got the response from the API");
                     JSONObject userJson = JSONUtil.ParseJSONObject(inputStream);
 
-                    if(userJson != null)
+                    if(userJson != null) {
+                        System.out.println("SIGNUP: Parsed the json response");
                         user = JSONUtil.GetUserObject(userJson);
+                    }
                     return user;
                 }
             }catch (Exception e) {
