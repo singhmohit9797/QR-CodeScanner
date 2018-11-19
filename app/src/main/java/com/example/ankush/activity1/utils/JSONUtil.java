@@ -142,6 +142,7 @@ public class JSONUtil {
 
         try {
             if(array != null) {
+                list = new ArrayList<>();
                 for(int i = 0; i < array.length(); i++) {
                     JSONObject obj = (JSONObject) array.get(i);
                     PointOfInterest poi = GetPoiObject(obj);

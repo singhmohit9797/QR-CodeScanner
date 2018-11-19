@@ -42,11 +42,15 @@ public class POIAdapter extends ArrayAdapter<PointOfInterest> {
         // The final view returned for the list
         final View result;
 
+        // If the view is not created for the list item, create a new one from the layout specified
         if(ConvertView == null) {
             viewHolder = new ViewHolder();
             ConvertView = inflater.inflate(R.layout.content_list_item, parent, false);
             viewHolder.titleView = ConvertView.findViewById(R.id.titleView);
             viewHolder.descView = ConvertView.findViewById(R.id.descriptionView);
+
+            viewHolder.titleView.setText(poi.getTitle());
+            viewHolder.descView.setText(poi.getDescription());
 
             result = ConvertView;
 
@@ -56,12 +60,14 @@ public class POIAdapter extends ArrayAdapter<PointOfInterest> {
             result = ConvertView;
         }
 
+        // Set the text for the views in the list item
         viewHolder.titleView.setText(poi.getTitle());
         viewHolder.descView.setText(poi.getDescription());
 
         return result;
     }
 
+    // To hold the views of the list item
     private static class ViewHolder {
         public TextView titleView;
         public TextView descView;

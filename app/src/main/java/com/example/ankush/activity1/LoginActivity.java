@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra(getString(R.string.user_object), user);
 
             // Finish the current activity
+            System.out.println("Logging in the user");
             finish();
             startActivityForResult(intent,0);
         }
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent (getApplicationContext(),SignupActivity.class);
 
             // Finish the current activity
+            System.out.println("Switching to the signup page");
             finish();
             startActivity(intent);
     }
@@ -132,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, User> {
+    private class UserLoginTask extends AsyncTask<Void, Void, User> {
 
         private User user;
 
@@ -153,10 +155,13 @@ public class LoginActivity extends AppCompatActivity {
                InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetUserJsonObject(email, password));
 
                if(inputStream != null) {
+                   System.out.println("LOGIN: Got the response from the API");
                    JSONObject userJson = JSONUtil.ParseJSONObject(inputStream);
 
-                   if(userJson != null)
+                   if(userJson != null) {
+                       System.out.println("LOGIN: Parsed the json response");
                        user = JSONUtil.GetUserObject(userJson);
+                   }
                    return user;
                }
            }catch (Exception e) {

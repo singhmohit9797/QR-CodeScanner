@@ -57,6 +57,7 @@ public class LandingPage extends AppCompatActivity {
         DeleteButton = findViewById(R.id.editButton);
 
         if(user.getIsAdmin() != 1) {
+            System.out.println("User is an Admin");
             EditButton.setVisibility(View.INVISIBLE);
             DeleteButton.setVisibility(View.INVISIBLE);
         }
@@ -65,6 +66,8 @@ public class LandingPage extends AppCompatActivity {
     public void OnScanNewClick(View v) {
         Intent intent = new Intent(getApplicationContext(), Scanner.class);
         intent.putExtra(getString(R.string.user_object), user);
+
+        System.out.println("Switching to Scanner Activity");
         startActivity(intent);
     }
 
@@ -72,17 +75,21 @@ public class LandingPage extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), AddActivity.class);
         intent.putExtra(getString(R.string.user_object), user);
         intent.putExtra(getString(R.string.poi_object), poi);
+
+        System.out.println("Switching to Add New Activity to edit this point of interest");
         startActivity(intent);
     }
 
     public void OnDeleteButtonClick(View v) {
         // Confirm if the user wants to delete the poi
+        System.out.println("Confirming delete action");
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Confirm Delete");
         dialog.setMessage("Are you sure you want to delete this poi? Changes will be irreversible.");
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                System.out.println("Received confirmation to delete this POI");
                 dialog.dismiss();
 
                 // Call the API
@@ -92,6 +99,7 @@ public class LandingPage extends AppCompatActivity {
         dialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                System.out.println("POI Deletion canceled");
                 dialog.dismiss();
             }
         });
@@ -107,14 +115,12 @@ public class LandingPage extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        boolean success = (task.getPoi() == null);
+        final boolean success = (task.getPoi() == null);
         String result;
         if(success) {
-            System.out.println("Successful Deletion");
             result = "Successfully deleted the Point of Interest";
         }
         else {
-            System.out.println("Something went wrong");
             result = "Couldn't delete the Point of Interest. Try again.";
         }
 
@@ -126,10 +132,12 @@ public class LandingPage extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
 
-                if(task.getPoi() == null) {
+                if(success) {
                     Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                     intent.putExtra(getString(R.string.user_object), user);
+                    poi = null;
 
+                    System.out.println("Switching to the admin activity");
                     // Finish the current Activity
                     finish();
                     startActivity(intent);
@@ -157,10 +165,17 @@ public class LandingPage extends AppCompatActivity {
                 InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetPoiJsonObject(pointOfInterest));
 
                 if(inputStream != null) {
+                    System.out.println("DELETE POI: Got the response from the API");
                     JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
 
-                    if(poiJson != null)
+                    if(poiJson != null){
+                        System.out.println("DELETE POI: Delete Unsuccessful");
                         pointOfInterest = JSONUtil.GetPoiObject(poiJson);
+                    }
+                    else {
+                        System.out.println("DELETE POI: Empty response from the API i.e. POI deleted correctly");
+                        pointOfInterest = null;
+                    }
                     return pointOfInterest;
                 }
             }catch (Exception e) {

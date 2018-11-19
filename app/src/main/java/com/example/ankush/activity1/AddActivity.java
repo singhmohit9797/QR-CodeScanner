@@ -92,7 +92,7 @@ public class AddActivity extends AppCompatActivity {
         String result;
         if(success) {
             System.out.println("Edit/Add: Successfully completed");
-            result = "User Registered Successfully. Taking you to the login page";
+            result = "Action Completed Successfully. Taking you to the login page";
         }
         else{
             System.out.println("Edit/Add: Something went wrong");
@@ -110,6 +110,8 @@ public class AddActivity extends AppCompatActivity {
                 if(success) {
                     Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                     intent.putExtra(getString(R.string.user_object), user);
+
+                    System.out.println("Switching to the Admin Activity");
                     finish();
                     startActivity(intent);
                 }
@@ -131,20 +133,22 @@ public class AddActivity extends AppCompatActivity {
 
             try {
                 // Send the request to the api
-                String url = getString(R.string.local_host_url) + getString(R.string.api_poi_new);
+                String url = getString(R.string.local_host_url) + getString((poi == null) ? R.string.api_poi_new : R.string.api_poi_edit);
                 System.out.println("URL:" + url);
                 InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetPoiJsonObject(pointOfInterest));
 
                 if(inputStream != null) {
-                    System.out.println("Call went through");
+                    System.out.println("ADD POI: Got Response from the API");
                     JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
 
-                    if(poiJson != null)
+                    if(poiJson != null){
+                        System.out.println("ADD POI: Successfully Parsed the json response");
                         pointOfInterest = JSONUtil.GetPoiObject(poiJson);
+                    }
                     return pointOfInterest;
                 }
 
-                System.out.println("Couldn't parse the object");
+                System.out.println("ADD POI: Couldn't parse the object");
             }catch (Exception e) {
                 e.printStackTrace();
             }

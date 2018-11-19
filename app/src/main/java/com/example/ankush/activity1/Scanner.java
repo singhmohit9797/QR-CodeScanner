@@ -40,7 +40,6 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
         setSupportActionBar(toolbar);
 
         poi = null;
-
         user = getIntent().getParcelableExtra(getString(R.string.user_object));
         System.out.println(user.getEmail() + "  " + user.getPassword());
     }
@@ -66,15 +65,16 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
 
         if(poi != null)
         {
+            System.out.println("Got the POI from the API");
             Intent intent = new Intent(getApplicationContext(), LandingPage.class);
             intent.putExtra(getString(R.string.poi_object), poi);
             intent.putExtra(getString(R.string.user_object), user);
 
             // Finish the current activity
+            System.out.println("Switching to the Landing page");
             finish();
             startActivity(intent);
         }
-
     }
 
     @Override
@@ -116,14 +116,16 @@ public class Scanner extends AppCompatActivity implements BarcodeReader.BarcodeR
                 //Call the API
                 String url = getString(R.string.local_host_url) + "get/" + title;
                 System.out.println(url);
-                System.out.println("Making the call");
                 InputStream inputStream = DbUtil.SendGetRequest(url);
 
                 if(inputStream != null) {
+                    System.out.println("GET POI: Got the response from the API");
                     JSONObject poiJson = JSONUtil.ParseJSONObject(inputStream);
 
-                    if(poiJson != null)
+                    if(poiJson != null) {
+                        System.out.println("GET POI: Parsed the json response");
                         poi = new PointOfInterest(poiJson.getInt("id"), poiJson.getString("title"), poiJson.getString("description"));
+                    }
 
                     return poi;
                 }

@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">QR Code Scanner</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_starting">starting</string>
-    <string name="title_activity_main3">Main3Activity</string>
     <string name="user_object">USER_OBJECT</string>
     <string name="poi_object">POI_OBJECT</string>
     <string name="error_required_field">Required Field</string>

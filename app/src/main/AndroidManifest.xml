@@ -23,7 +23,7 @@
         <activity
             android:name=".LandingPage"
             android:label="@string/title_activity_result"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoadingScreen"
             android:label="LOADING......"
@@ -35,19 +35,19 @@
         <activity
             android:name=".AdminActivity"
             android:label="@string/title_activity_admin"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewActivity"
             android:label="@string/title_activity_view"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddActivity"
             android:label="@string/title_activity_add"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
