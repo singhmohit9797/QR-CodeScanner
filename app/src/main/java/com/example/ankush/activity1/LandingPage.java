@@ -54,10 +54,10 @@ public class LandingPage extends AppCompatActivity {
         resultDescView.setText(poi.getDescription());
 
         EditButton = findViewById(R.id.editButton);
-        DeleteButton = findViewById(R.id.editButton);
+        DeleteButton = findViewById(R.id.deleteButton);
 
         if(user.getIsAdmin() != 1) {
-            System.out.println("User is an Admin");
+            System.out.println("User is not an Admin");
             EditButton.setVisibility(View.INVISIBLE);
             DeleteButton.setVisibility(View.INVISIBLE);
         }
@@ -118,9 +118,11 @@ public class LandingPage extends AppCompatActivity {
         final boolean success = (task.getPoi() == null);
         String result;
         if(success) {
+            System.out.println("Success");
             result = "Successfully deleted the Point of Interest";
         }
         else {
+            System.out.println("Failure");
             result = "Couldn't delete the Point of Interest. Try again.";
         }
 
@@ -144,6 +146,7 @@ public class LandingPage extends AppCompatActivity {
                 }
             }
         });
+        resultDialog.show();
     }
 
     private class DelPOITask extends AsyncTask<Void, Void, PointOfInterest> {
@@ -189,8 +192,10 @@ public class LandingPage extends AppCompatActivity {
         protected void onPostExecute(final PointOfInterest pointOfInterest) {
             task = null;
 
+            System.out.println("Post Execute");
+
             if (pointOfInterest == null) {
-                ;
+                System.out.println("null");
             } else {
                 resultDescView.setError(getString(R.string.error_connection_timeout));
                 resultDescView.requestFocus();

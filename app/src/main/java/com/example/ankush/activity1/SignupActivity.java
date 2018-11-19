@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 User userObj = new User(id, email, password, 0);
 
-                InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetUserJsonObject(user));
+                InputStream inputStream = DbUtil.SendPostRequest(url, JSONUtil.GetUserJsonObject(userObj));
 
                 if(inputStream != null) {
                     System.out.println("SIGNUP: Got the response from the API");

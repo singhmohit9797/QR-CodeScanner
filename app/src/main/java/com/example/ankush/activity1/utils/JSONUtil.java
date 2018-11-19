@@ -116,6 +116,7 @@ public class JSONUtil {
         try{
             if(obj != null) {
                 user = new User(obj.getInt("id"), obj.getString("email"), obj.getString("password"), obj.getInt("isAdmin"));
+                System.out.println(user.getIsAdmin());
             }
         } catch(JSONException e) {
             e.printStackTrace();
